@@ -1,8 +1,10 @@
 {
-  "name": "exploration",
+  "name": "hellotrello",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/philhawksworth/hello-trello"
+  },
   "scripts": {
     "build": "eleventy",
     "seed": "ELEVENTY_ENV=seed eleventy",

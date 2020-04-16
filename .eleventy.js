@@ -11,6 +11,9 @@ module.exports = function(eleventyConfig) {
     return md.render(content);
   });
 
+
+  eleventyConfig.addPassthroughCopy("src/style.css");
+
   // Where are my things?
   return  {
     dir: {

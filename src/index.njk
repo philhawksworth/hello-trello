@@ -4,22 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>HelloTrello</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <h1>HelloTrello!</h1>
-  {% for card in trello %}
-  <section>
-    <h2>{{ card.name }}</h2>
-    <div>
-    {% markdown %}
-      {{- card.desc }}
-    {% endmarkdown %}
-    </div>
-  </section>
-  {% endfor %}
+  <header>
+    <h1>HelloTrello!</h1>
+    <p>
+      This site is populated with content from a <a href="https://trello.com/b/Zzc0USwZ/hellotrello">Trello</a> board. When the board changes, the site is automaticcaly rebuilt and deployed by <a href="https://netlify.com">Netlify</a>
+    </p>
+  </header>
+  <main>
+    {% for card in trello %}
+    <section>
+      <h2>{{ card.name }}</h2>
+      <div>
+      {% markdown %}
+        {{- card.desc }}
+      {% endmarkdown %}
+      </div>
+    </section>
+    {% endfor %}
+  </main>
   <footer>
     <p>
-      This site is populated with content from a Trello board. When the baord changes, the site is automaticcaly rebuilt and deployed by Netlify
+      The Trello board which is the source od this content has columns for staged and for live content. These power different branch builds, but the code on <a href="https://stage--hellotrello.netlify.app">staging</a> and <a href="https://hellotrello.netlify.app">live</a> are identical.
+    </p>
+    <p>
+      Check out the <a href="{{ pkg.repository.url }}">code in GitHub</a> to learn more and try this out for yourself.
     </p>
   </footer>
 </body>
