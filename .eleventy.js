@@ -1,7 +1,7 @@
 
 module.exports = function(eleventyConfig) {
 
-  // A hand markdown shortcode for blocks of markdown
+  // A handy markdown shortcode for blocks of markdown
   // coming from our data sources
   const markdownIt = require('markdown-it');
   const md = new markdownIt({
@@ -11,10 +11,11 @@ module.exports = function(eleventyConfig) {
     return md.render(content);
   });
 
+  // Where are my things?
   return  {
     dir: {
       input: "src",
-      output: "dist",
+      output: "dist"
     }
   };
 

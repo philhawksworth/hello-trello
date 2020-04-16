@@ -39,6 +39,9 @@ module.exports = () => {
 
       return Promise.all(cardPromises)
         .then(() => {
+
+          // If we ran the seed script, let's stach this data for use during
+          // local development. Just to save our API quotas.
           if(process.env.ELEVENTY_ENV == 'seed') {
             fs.writeFile(localDataFile, JSON.stringify(allCards), err => {
               if(err) {
@@ -48,6 +51,8 @@ module.exports = () => {
               }
             });
           }
+
+          // give eleventy the trello cards
           return allCards;
         });
 
