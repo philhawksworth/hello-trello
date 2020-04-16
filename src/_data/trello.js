@@ -1,61 +1,48 @@
-const fs = require("fs");
-
 require('dotenv').config();
+const {
+  TRELLO_BOARD_ID,
+  TRELLO_DEV_TOKEN,
+  TRELLO_KEY,
+  ELEVENTY_ENV } = process.env;
 
+const fs = require("fs");
 const Trello = require("trello");
-const trello = new Trello(process.env.TRELLO_KEY, process.env.TRELLO_DEV_TOKEN );
-const boardID = '5e98324e40df9d1269739d4b';
-const localDataFile =  __dirname + '/local/trello.json';
-
+const trello = new Trello(TRELLO_KEY, TRELLO_DEV_TOKEN);
+const localDataFile = __dirname + '/local/trello.json';
 
 module.exports = () => {
 
-  console.log('CAN WE USE THE BRANCH TO AUTOMATICALLY KEY THE TRELLO CONTENT? Branch:', process.env.BRANCH );
-
-
   // don't keep hitting the API during local dev
-  if(process.env.ELEVENTY_ENV == 'dev') {
+  if(ELEVENTY_ENV == 'dev') {
     return require(localDataFile);
   }
 
-  let allCards = {};
-  let cardPromises = [];
-
-  return trello.getListsOnBoard(boardID)
+  return trello.getListsOnBoard(TRELLO_BOARD_ID)
     .then((lists) => {
+      // make and index of list ids
+      // we can reference by branch name
+      var listKeys = {};
       lists.forEach(list => {
-        cardPromises.push(
-          trello.getCardsOnList(list.id)
-            .then(cards => {
-              cards.forEach(element => {
-                if(!allCards[list.name]) {
-                  allCards[list.name] = [];
-                }
-                allCards[list.name].push(element);
-              });
-            })
-        );
+        listKeys[list.name.toLowerCase()] = list.id;
       })
 
-      return Promise.all(cardPromises)
-        .then(() => {
-
+      // get the cards from the list which corresponds
+      // to the branch this is running on.
+      let listId = listKeys[process.env.branch] || listKeys['live'];
+      return trello.getCardsOnList(listId)
+        .then(cards => {
           // If we ran the seed script, let's stach this data for use during
           // local development. Just to save our API quotas.
-          if(process.env.ELEVENTY_ENV == 'seed') {
-            fs.writeFile(localDataFile, JSON.stringify(allCards), err => {
+          if(ELEVENTY_ENV == 'seed') {
+            fs.writeFile(localDataFile, JSON.stringify(cards), err => {
               if(err) {
                 console.log(err);
               } else {
-                console.log(`Data saved lcoally for dev: ${localDataFile}`);
+                console.log(`Data saved locally for dev: ${localDataFile}`);
               }
             });
           }
-
-          // give eleventy the trello cards
-          return allCards;
-        });
-
+          return cards;
+        })
     });
-
 }
