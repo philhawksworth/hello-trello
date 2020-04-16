@@ -1,0 +1,20 @@
+{
+  "name": "exploration",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "eleventy",
+    "seed": "ELEVENTY_ENV=seed eleventy",
+    "start": "ELEVENTY_ENV=dev eleventy --serve"
+  },
+  "keywords": [],
+  "author": "Phil Hawksworth <phil@netlify.com>",
+  "license": "ISC",
+  "dependencies": {
+    "@11ty/eleventy": "^0.10.0",
+    "dotenv": "^8.2.0",
+    "markdown-it": "^10.0.0",
+    "trello": "^0.10.0"
+  }
+}

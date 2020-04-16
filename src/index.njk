@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HelloTrello</title>
+</head>
+<body>
+  <h1>HelloTrello!</h1>
+  {% for card in trello.Draft %}
+  <section>
+    <h2>{{ card.name }}</h2>
+    <div>
+    {% markdown %}
+      {{- card.desc }}
+    {% endmarkdown %}
+    </div>
+  </section>
+  {% endfor %}
+  <footer>
+    <p>
+      This site is populated with content from a Trello board. When the baord changes, the site is automaticcaly rebuilt and deployed by Netlify
+    </p>
+  </footer>
+</body>
+</html>
