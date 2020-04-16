@@ -3,7 +3,8 @@ const {
   TRELLO_BOARD_ID,
   TRELLO_DEV_TOKEN,
   TRELLO_KEY,
-  ELEVENTY_ENV } = process.env;
+  ELEVENTY_ENV,
+  BRANCH } = process.env;
 
 const fs = require("fs");
 const Trello = require("trello");
@@ -28,7 +29,12 @@ module.exports = () => {
 
       // get the cards from the list which corresponds
       // to the branch this is running on.
-      let listId = listKeys[process.env.branch] || listKeys['live'];
+      let listId = listKeys[BRANCH] || listKeys['live'];
+      // let listId = listKeys['stage'] || listKeys['live'];
+
+      console.log('LIST ID :', listId);
+      console.log('FOR BRANCH :', BRANCH);
+
       return trello.getCardsOnList(listId)
         .then(cards => {
           // If we ran the seed script, let's stach this data for use during
