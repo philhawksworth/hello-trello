@@ -1,5 +1,5 @@
 
-// Get any the environment variables we need
+// Get any environment variables we need
 require('dotenv').config();
 const {
   TRELLO_BOARD_ID,
@@ -11,7 +11,7 @@ const {
 const fs = require("fs");
 const Trello = require("trello");
 const trello = new Trello(TRELLO_KEY, TRELLO_DEV_TOKEN);
-const localDataFile = __dirname + '/local/trello.json';
+const localDataFile = __dirname + '/local/cards.json';
 
 
 module.exports = () => {
@@ -31,16 +31,20 @@ module.exports = () => {
         listKeys[list.name.toLowerCase()] = list.id;
       })
 
-      // get the cards from the list which corresponds
-      // to the branch this is running on.
-      let listId = listKeys[BRANCH] || listKeys['live'];
+      // get the cards from the "live" list
+      let listId = listKeys['published'];
       return trello.getCardsOnList(listId)
         .then(cards => {
+
+          // only included cards labelled as "live" or with this branch name
+          let result = cards.filter(card => {
+            return card.labels.filter(label => (label.name.toLowerCase() == 'live' || BRANCH )).length;
+          });
 
           // If we ran the seed script, let's stash this data so we can
           // use it during local development. Just to save our API quotas.
           if(ELEVENTY_ENV == 'seed') {
-            fs.writeFile(localDataFile, JSON.stringify(cards), err => {
+            fs.writeFile(localDataFile, JSON.stringify(result), err => {
               if(err) {
                 console.log(err);
               } else {
@@ -49,7 +53,7 @@ module.exports = () => {
             });
           }
 
-          return cards;
+          return result;
         })
     });
 }
