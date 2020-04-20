@@ -11,7 +11,7 @@ const {
 const fs = require("fs");
 const Trello = require("trello");
 const trello = new Trello(TRELLO_KEY, TRELLO_DEV_TOKEN);
-const localDataFile = __dirname + '/local/cards.json';
+const localDataFile = __dirname + '/local/trello.json';
 
 
 module.exports = () => {

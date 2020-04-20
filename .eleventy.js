@@ -11,8 +11,11 @@ module.exports = function(eleventyConfig) {
     return md.render(content);
   });
 
-
-  eleventyConfig.addPassthroughCopy("src/style.css");
+  // Simply inline minified CSS
+  const CleanCSS = require('clean-css');
+  eleventyConfig.addFilter('cssmin', function(code) {
+    return new CleanCSS({}).minify(code).styles;
+  });
 
   // Where are my things?
   return  {

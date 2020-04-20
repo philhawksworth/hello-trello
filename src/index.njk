@@ -4,7 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>👋 HelloTrello</title>
-  <link rel="stylesheet" href="/style.css">
+  <!-- capture the CSS content as a Nunjucks variable -->
+  {% set css %}
+    {% include "style.css" %}
+  {% endset %}
+  <!-- feed it through our cssmin filter to minify -->
+  <style>
+    {{ css | cssmin | safe }}
+  </style>
 </head>
 <body>
   <div class="tint">
@@ -16,7 +23,7 @@
     </header>
   </div>
   <main>
-    {% for card in cards %}
+    {% for card in trello %}
     <section>
       <h2>{{ card.name }} </h2>
       <div>
@@ -30,10 +37,13 @@
   <div class="tint">
     <footer>
       <p>
-        This example includes <a href="https://stage--hellotrello.netlify.app">staging</a> and <a href="https://hellotrello.netlify.app">production</a> examples. These are poswere by Netlify's Brach Deploys, but the code on each bracng is identical. They filter the content ioncluded based on the labels on the trello cards and the branch name.
+        This example includes <a href="https://stage--hellotrello.netlify.app">staging</a> and <a href="https://hellotrello.netlify.app">production</a> environments. Go ahead, take a look.
       </p>
       <p>
-        Check out the <a href="{{ pkg.repository.url }}">code in GitHub</a> to learn more and try this out for yourself.
+        Environments are created by <a href="https://docs.netlify.com/site-deploys/overview/#branches-and-deploys">Netlify's Branch Deploy</a> feature, but the code on each branch is identical — they simply filter the content included based on the labels on the Trello cards and the branch name.
+      </p>
+      <p>
+        Feel free to explore this site's <a href="{{ pkg.repository.url }}">code in GitHub</a> to learn more and try this out for yourself.
       </p>
     </footer>
   </div>
