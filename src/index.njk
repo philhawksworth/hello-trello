@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>HelloTrello</title>
+  <title>👋 HelloTrello</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -11,14 +11,14 @@
     <header>
       <h1>HelloTrello!</h1>
       <p>
-        This site is populated with content from a public <a href="https://trello.com/b/Zzc0USwZ/hellotrello">Trello board</a>. Every deployment pulls the latest content from the Trello API and populates this site at build time on <a href="https://netlify.com">Netlify</a>.
+        This site is populated with content from a public <a href="https://trello.com/b/Zzc0USwZ/hellotrello">Trello board</a>. Every deployment pulls the  content from the Trello API and generates the site's HTML at build time on <a href="https://netlify.com">Netlify</a>.
       </p>
     </header>
   </div>
   <main>
     {% for card in cards %}
     <section>
-      <h2>{{ card.name }}</h2>
+      <h2>{{ card.name }} </h2>
       <div>
       {% markdown %}
         {{- card.desc }}
@@ -30,7 +30,7 @@
   <div class="tint">
     <footer>
       <p>
-        The Trello board which is the source od this content has columns for staged and for live content. These power different branch builds, but the code on <a href="https://stage--hellotrello.netlify.app">staging</a> and <a href="https://hellotrello.netlify.app">live</a> are identical.
+        This example includes <a href="https://stage--hellotrello.netlify.app">staging</a> and <a href="https://hellotrello.netlify.app">production</a> examples. These are poswere by Netlify's Brach Deploys, but the code on each bracng is identical. They filter the content ioncluded based on the labels on the trello cards and the branch name.
       </p>
       <p>
         Check out the <a href="{{ pkg.repository.url }}">code in GitHub</a> to learn more and try this out for yourself.

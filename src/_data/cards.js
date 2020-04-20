@@ -16,7 +16,8 @@ const localDataFile = __dirname + '/local/cards.json';
 
 module.exports = () => {
 
-  // don't keep hitting the API during local dev
+  // Don't keep hitting the API during local dev,
+  // use a previously seeded data file instead.
   if(ELEVENTY_ENV == 'dev') {
     return require(localDataFile);
   }
@@ -25,20 +26,24 @@ module.exports = () => {
     .then((lists) => {
 
       // make and index of list ids
-      // we can reference by branch name
+      // we can reference by list name
       var listKeys = {};
       lists.forEach(list => {
         listKeys[list.name.toLowerCase()] = list.id;
       })
 
-      // get the cards from the "live" list
+      // get the cards from the "published" list
       let listId = listKeys['published'];
       return trello.getCardsOnList(listId)
         .then(cards => {
 
-          // only included cards labelled as "live" or with this branch name
+          // only include cards labelled with "live" or with this branch name
           let result = cards.filter(card => {
-            return card.labels.filter(label => (label.name.toLowerCase() == 'live' || BRANCH )).length;
+            return card.labels.filter(
+              label => (
+                label.name.toLowerCase() == 'live' ||
+                label.name.toLowerCase() == BRANCH
+              )).length;
           });
 
           // If we ran the seed script, let's stash this data so we can

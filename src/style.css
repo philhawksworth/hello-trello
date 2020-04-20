@@ -30,7 +30,7 @@ main,
 footer {
   max-width: 600px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 3rem 2rem;
 }
 
 section {
@@ -38,6 +38,9 @@ section {
   padding-bottom: 2rem;
 }
 
+h1 {
+  font-size: 3rem;
+}
 h1, h2, h3 {
   margin:0;
   padding: 1rem 0;
