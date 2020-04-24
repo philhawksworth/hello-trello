@@ -8,7 +8,8 @@
   "scripts": {
     "build": "eleventy",
     "seed": "ELEVENTY_ENV=seed eleventy",
-    "start": "ELEVENTY_ENV=dev eleventy --serve"
+    "start": "ELEVENTY_ENV=dev eleventy --serve",
+    "hook": "node addTrelloHook.js"
   },
   "keywords": [],
   "author": "Phil Hawksworth <phil@netlify.com>",
@@ -18,6 +19,7 @@
     "clean-css": "^4.2.3",
     "dotenv": "^8.2.0",
     "markdown-it": "^10.0.0",
+    "node-fetch": "^2.6.0",
     "trello": "^0.10.0"
   }
 }
