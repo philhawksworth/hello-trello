@@ -53,9 +53,9 @@ a:visited {
   color: #000;
   padding: 1px 3px 2px 3px;
   margin: 0 -3px;
-  background-color:var(--flourish) ;
+  background-color:var(--flourish);
 }
 a:hover,
 a:focus {
-  background-color:var(--flash) ;
+  background-color:var(--flash);
 }
