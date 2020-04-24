@@ -18,4 +18,4 @@
   # https://github.com/kangax/html-minifier#options-quick-reference
   [plugins.inputs.minifierOptions]
     removeComments = true
-    collapseInlineTagWhitespace = true
+    collapseInlineTagWhitespace = false
