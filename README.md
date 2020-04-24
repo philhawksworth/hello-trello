@@ -8,6 +8,9 @@ A little experiment to pull content from the Trello API and use it to populate c
 The site is populated from a list of cards in a public (but read only) [Trello board](https://trello.com/b/Zzc0USwZ/hellotrello)
 
 
+Why? 👉 https://twitter.com/philhawksworth/status/1253696940170186754
+
+
 ## Sections from cards
 
 Each card in Trello populates a section of the page. And since Trello supports markdown, we can also do some simple text formatting with the markdown we get from the cards API.
