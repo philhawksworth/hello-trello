@@ -9,13 +9,13 @@
     "build": "eleventy",
     "seed": "ELEVENTY_ENV=seed eleventy",
     "start": "ELEVENTY_ENV=dev eleventy --serve",
-    "hook": "node addTrelloHook.js"
+    "hook": "node utils/addTrelloHook.js"
   },
   "keywords": [],
   "author": "Phil Hawksworth <phil@netlify.com>",
   "license": "ISC",
   "dependencies": {
-    "@11ty/eleventy": "^0.10.0",
+    "@11ty/eleventy": "^0.11.0",
     "clean-css": "^4.2.3",
     "dotenv": "^8.2.0",
     "markdown-it": "^10.0.0",

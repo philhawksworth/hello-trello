@@ -20,7 +20,8 @@ Each card in Trello populates a section of the page. And since Trello supports m
 
 Whenever we make changes in the Published list, Trello triggers a [Netlify build hook](https://docs.netlify.com/configure-builds/build-hooks/?utm_source=github&utm_medium=hellotrello-pnh&utm_campaign=devex) which initiates a new build and deployment, updating the site.
 
-Trello paid accounts can have buttons which can make HTTP Post requests, which means we cold have a button which initiates a site deployment on Netlify via a build hook.
+Trello paid accounts can have buttons which can make HTTP Post requests, which means we cold have a button which initiates a site deployment on Netlify via a build hook. Or you can also user the Trello API to create a webhook which will trigger a new build automatically when changes are made to the board.
+
 
 ## Staging / Production
 

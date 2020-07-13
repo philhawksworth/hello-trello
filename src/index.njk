@@ -4,11 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>👋 HelloTrello</title>
-  <!-- capture the CSS content as a Nunjucks variable -->
   {% set css %}
     {% include "style.css" %}
   {% endset %}
-  <!-- feed it through our cssmin filter to minify -->
   <style>
     {{ css | cssmin | safe }}
   </style>
@@ -25,10 +23,10 @@
   <main>
     {% for card in trello %}
     <section>
-      <h2>{{ card.name }} </h2>
+      <h2>{{ card.name }}</h2>
       <div>
       {% markdown %}
-        {{- card.desc }}
+        {{- card.desc | safe }}
       {% endmarkdown %}
       </div>
     </section>
