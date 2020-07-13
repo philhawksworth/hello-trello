@@ -7,8 +7,9 @@ A little experiment to pull content from the Trello API and use it to populate c
 
 The site is populated from a list of cards in a public (but read only) [Trello board](https://trello.com/b/Zzc0USwZ/hellotrello)
 
-
 Why? 👉 https://twitter.com/philhawksworth/status/1253696940170186754
+
+![Screenshot of Trello board and site](./screenshots.jpg "Screenshot of Trello board and site")
 
 
 ## Sections from cards
@@ -20,16 +21,22 @@ Each card in Trello populates a section of the page. And since Trello supports m
 
 Whenever we make changes in the Published list, Trello triggers a [Netlify build hook](https://docs.netlify.com/configure-builds/build-hooks/?utm_source=github&utm_medium=hellotrello-pnh&utm_campaign=devex) which initiates a new build and deployment, updating the site.
 
-Trello paid accounts can have buttons which can make HTTP Post requests, which means we cold have a button which initiates a site deployment on Netlify via a build hook. Or you can also user the Trello API to create a webhook which will trigger a new build automatically when changes are made to the board.
+We can use the Trello API to create the webhook which will trigger a new build automatically when changes are made to the board.
+
+1. Create a [new Build Hook](https://docs.netlify.com/configure-builds/build-hooks/?utm_source=github&utm_medium=hellotrello-pnh&utm_campaign=devex#app) in your Netlify site admin
+2. Register your Build Hook as a webhook with Trello using the utility below.
+
+
+```bash
+# Register a webhook with Trello, to invoke a build whenever the board is updated
+npm run hook --url https://api.netlify.com/build_hooks/XXXXX
+```
+
+
+Trello paid accounts can have buttons which can make HTTP Post requests, which means we cold have a button which initiates a site deployment on Netlify via a build hook instead of for every update on the board.
 
 
 ## Staging / Production
 
 Netlify lets you create an unlimited number of environments [based on git branches](https://docs.netlify.com/site-deploys/overview/#branches-and-deploys?utm_source=github&utm_medium=hellotrello-pnh&utm_campaign=devex). Each gets its own URL. This example maps the labels on the Trello cards to the different branches, so we event get a simple publishing workflow.
 
-
-## TODO
-
-- Add a simple starting template for others
-- List the APIs and services this uses.
-- Create automated way to create the webhooks and join them up for a speedy on-ramp.
