@@ -1,78 +1,45 @@
+const fetch = require('node-fetch');
+
 // Get any environment variables we need
+// With public fallbacks for happier onboarding
 require('dotenv').config();
 const {
-  TRELLO_LIST_ID,
-  TRELLO_TOKEN,
-  TRELLO_KEY,
-  ELEVENTY_ENV,
+  TRELLO_JSON_URL='https://trello.com/b/Zzc0USwZ/hellotrello.json',
+  TRELLO_LIST_ID='5e98325d6d6bd120f2b7395f',
   BRANCH } = process.env;
 
-const fs = require("fs");
-const Trello = require("trello");
-const trello = new Trello(TRELLO_KEY, TRELLO_TOKEN);
-const localDataFile = __dirname + '/local/trello.json';
 
+module.exports = () => {
 
+  // Fetch the JSON data about this board
+  return fetch(TRELLO_JSON_URL)
+    .then(res => res.json())
+    .then(json => {
 
-
-module.exports = async function() {
-
-  // Don't keep hitting the API during local dev,
-  // use a previously seeded data file instead.
-  if(ELEVENTY_ENV == 'dev') {
-    return require(localDataFile);;
-  }
-
-  // Get the cards on the list we care about
-  return trello.getCardsOnList(TRELLO_LIST_ID)
-    .then(async function(cards) {
-
-      // only include cards labelled with "live" or with this branch name
-      let contextCards = cards.filter(card => {
-        return card.labels.filter(
-          label => (
-            label.name.toLowerCase() == 'live' ||
-            label.name.toLowerCase() == BRANCH
-          )).length;
+      // Just focus on the cards which are in the list we want
+      // and do not have a closed status
+      let contentCards = json.cards.filter(card => {
+        return card.idList == TRELLO_LIST_ID && !card.closed;
       });
 
-      // gather promises for cards with attachments
-      const promises = contextCards.map(card => {
-        if(card.idAttachmentCover) {
-          return trello.makeRequest('get', `/1/cards/${card.id}/attachments/${card.idAttachmentCover}`).then((attachment) => {
-            return { ...card, attachment} ;
-          });
-        }
-        else {
-          return card;
-        }
+      // only include cards labelled with "live" or with
+      // the name of the branch we are in
+      let contextCards = contentCards.filter(card => {
+        return card.labels.filter(label => (
+          label.name.toLowerCase() == 'live' ||
+          label.name.toLowerCase() == BRANCH
+        )).length;
       });
 
-      // Gather up any attachment URLs and
-      // add them to the markdown for their cards
-      const enrichedCards = await Promise.all(promises);
-      enrichedCards.forEach(card => {
-        if(card.attachment){
+      // If a card has an attachment, add it as an image in the descriotion markdown
+      contextCards.forEach(card => {
+        if(card.attachments.length) {
           card.name = "";
-          card.desc = card.desc + `
-![${card.name}](${card.attachment.url} '${card.name}')
-          `;
+          card.desc = card.desc + `\n![${card.name}](${card.attachments[0].url} '${card.name}')`;
         }
-      });
+      })
 
-      // If we ran the seed script, let's stash this data so we can
-      // use it during local development. Just to save our API quotas.
-      if(ELEVENTY_ENV == 'seed') {
-        fs.writeFile(localDataFile, JSON.stringify(enrichedCards), err => {
-          if(err) {
-            console.log(err);
-          } else {
-            console.log(`Data saved locally for dev: ${localDataFile}`);
-          }
-        });
-      }
-
-      return enrichedCards;
-    });
-
-}
+      // return our data
+      return contextCards;
+  });
+};

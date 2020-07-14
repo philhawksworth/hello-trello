@@ -1,26 +1,24 @@
 {
   "name": "hellotrello",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/philhawksworth/hello-trello"
   },
   "scripts": {
     "build": "eleventy",
-    "seed": "ELEVENTY_ENV=seed eleventy",
-    "start": "ELEVENTY_ENV=dev eleventy --serve",
+    "start": "eleventy --serve",
     "hook": "node utils/addTrelloHook.js"
   },
   "keywords": [],
   "author": "Phil Hawksworth <phil@netlify.com>",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "@11ty/eleventy": "^0.11.0",
     "clean-css": "^4.2.3",
     "dotenv": "^8.2.0",
     "markdown-it": "^10.0.0",
     "netlify-plugin-minify-html": "^0.2.2",
-    "node-fetch": "^2.6.0",
-    "trello": "^0.10.0"
+    "node-fetch": "^2.6.0"
   }
 }
