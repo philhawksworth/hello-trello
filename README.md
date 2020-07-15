@@ -16,6 +16,11 @@ Why? 👉 https://twitter.com/philhawksworth/status/1253696940170186754
 
 Each card in Trello populates a section of the page. And since Trello supports markdown, we can also do some simple text formatting with the markdown we get from the cards API.
 
+## Quick start
+
+To clone this repo, create a new Netlify site and start making changes click the button below and follow the instructions.
+
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/philhawksworth/hello-trello&utm_source=github&utm_medium=hellotrello-pnh&utm_campaign=devex)
 
 ## Webhooks trigger updates
 
