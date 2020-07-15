@@ -16,7 +16,7 @@
     <header>
       <h1>HelloTrello!</h1>
       <p>
-        This site is populated with content from a public <a href="https://trello.com/b/Zzc0USwZ/hellotrello">Trello board</a>. Every deployment pulls the  content from the Trello API and generates the site's HTML at build time on <a href="https://netlify.com{{ site.utm }}">Netlify</a>.
+        This site is populated with content from a public <a href="{{ site.trello_board }}">Trello board</a>. Every deployment pulls the  content from the Trello API and generates the site's HTML at build time on <a href="https://netlify.com{{ site.utm }}">Netlify</a>.
       </p>
     </header>
   </div>
@@ -35,7 +35,7 @@
   <div class="tint">
     <footer>
       <p>
-        This example includes <a href="https://stage--hellotrello.netlify.app">staging</a> and <a href="https://hellotrello.netlify.app">production</a> environments. Go ahead, take a look.
+        This example includes <a href="https://stage--{{ site.host }}">staging</a> and <a href="https://{{ site.host }}">production</a> environments. Go ahead, take a look.
       </p>
       <p>
         Environments are created by <a href="https://docs.netlify.com/site-deploys/overview/{{ site.utm }}#branches-and-deploys">Netlify's Branch Deploy</a> feature, but the code on each branch is identical — they simply filter the content included based on the labels on the Trello cards and the branch name.
