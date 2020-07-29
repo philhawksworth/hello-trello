@@ -38,7 +38,7 @@ npm run hook --url https://api.netlify.com/build_hooks/XXXXX
 ```
 
 
-Trello paid accounts can have buttons which can make HTTP Post requests, which means we cold have a button which initiates a site deployment on Netlify via a build hook instead of for every update on the board.
+Trello paid accounts can have buttons which can make HTTP Post requests, which means we could have a button which initiates a site deployment on Netlify via a build hook instead of for every update on the board.
 
 
 ## Staging / Production
