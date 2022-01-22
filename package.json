@@ -19,6 +19,6 @@
     "dotenv": "^8.2.0",
     "markdown-it": "^10.0.0",
     "netlify-plugin-minify-html": "^0.2.2",
-    "node-fetch": "^2.6.0"
+    "node-fetch": "^3.1.1"
   }
 }
